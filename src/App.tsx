@@ -1,30 +1,51 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
+import { useEffect, useState } from 'react';
 import tmi from 'tmi.js';
+
+interface Question {
+  user?: string,
+  question?: string
+}
+
 
 function App() {
 
+  const [questions, setQuestions] = useState<String[]>([]);
+
+  useEffect(() => {
+
+    const client = new tmi.Client({
+      channels: ['mvotho']
+    });
+
+    client.connect();
+
+    client.on('message', (channel, tags, message, self) => {
+      if (self || !message.startsWith('!q')) return;
+
+      //console.log(`${tags['display-name']}: ${message}`);
+      const userId = tags['username'];
+      const userMessage = message;
+      if (message !== null) {
+        const uQuestion: Question = {
+          user: userId!,
+          question: userMessage
+        }
+
+        setQuestions((prevState: any) => [...prevState, uQuestion]);
+      }
 
 
-  const client = new tmi.Client({
-    channels: [ 'mvotho' ]
-  });
-  
-  client.connect();
-  
-  client.on('message', (channel, tags, message, self) => {
-    // "Alca: Hello, World!"
-    if(self || !message.startsWith('!q')) return;
+    });
 
-      console.log(`${tags['display-name']}: ${message}`);
-    
-  });
-      
-
+  }, [])
 
   return (
-    <div className='text-3xl font-bold underline'>
-       Hello Word
+    <div className='h-64 text-3xl overflow-y-auto'>
+      {questions?.map((q:any) => (
+        <><p>{q.user}</p>
+          <p>{q.question}</p></>
+      ))}
+
     </div>
   )
 }
