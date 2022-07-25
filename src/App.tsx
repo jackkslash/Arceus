@@ -1,10 +1,8 @@
 import { useEffect, useState } from 'react';
 import tmi from 'tmi.js';
+import { QuestionWidget } from './components/QuestionWidget';
+import { Question } from './types/types'
 
-interface Question {
-  user?: string,
-  question?: string
-}
 
 
 function App() {
@@ -40,13 +38,16 @@ function App() {
   }, [])
 
   return (
+    <>
     <div className='h-64 text-3xl overflow-y-auto'>
       {questions?.map((q:any) => (
-        <><p>{q.user}</p>
-          <p>{q.question}</p></>
+        // <p>{q.user}</p>
+        //   <p>{q.question}</p>
+        <QuestionWidget user={q.user} question={q.question}></QuestionWidget>
       ))}
-
     </div>
+  </>
+    
   )
 }
 
