@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { QuestionWidget } from '../components/QuestionWidget';
 import { Question } from '../types/types';
 import tmi from 'tmi.js';
@@ -51,3 +51,7 @@ export const Main = () => {
 }
 
 export default Main;
+
+function useAutoAnimate(): [any] {
+  throw new Error('Function not implemented.');
+}
