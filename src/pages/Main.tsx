@@ -52,6 +52,3 @@ export const Main = () => {
 
 export default Main;
 
-function useAutoAnimate(): [any] {
-  throw new Error('Function not implemented.');
-}

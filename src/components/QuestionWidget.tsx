@@ -1,12 +1,14 @@
+import { useState } from "react";
 import { useLocalStorage } from "usehooks-ts"
 import { Question } from "../types/types"
 
 export const QuestionWidget = ({ user, question }: Question) => {
 
   const [isPin, setPin] = useLocalStorage("Question", question);
-
+  const [toggle, setToggle] = useState(false);
+  
   const togglePin = () => {
-    setPin(question)
+          setPin(question)
   }
 
   return (
