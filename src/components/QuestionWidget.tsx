@@ -5,7 +5,6 @@ import { Question } from "../types/types"
 export const QuestionWidget = ({ user, question }: Question) => {
 
   const [isPin, setPin] = useLocalStorage("Question", question);
-  const [toggle, setToggle] = useState(false);
   
   const togglePin = () => {
           setPin(question)
