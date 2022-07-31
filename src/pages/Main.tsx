@@ -3,6 +3,7 @@ import { QuestionWidget } from '../components/QuestionWidget';
 import { Question } from '../types/types';
 import tmi from 'tmi.js';
 import { Link } from 'react-router-dom';
+import NavigationBar from '../components/NavigationBar';
 
 export const Main = () => {
   const [questions, setQuestions] = useState<String[]>([]);
@@ -39,11 +40,7 @@ export const Main = () => {
 
   return (
     <>
-
-      <div>
-        <Link to={"embed/"+userName}>Test</Link>
-      </div>
-
+      <NavigationBar userName={userName}/>
       <div className='flex justify-center'>
         <div className='flex flex-wrap h-64 w-1/2 text-3xl overflow-auto'>
           {questions?.map((q: any) => (
