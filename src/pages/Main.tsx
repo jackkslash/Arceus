@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { QuestionWidget } from '../components/QuestionWidget';
 import { Question } from '../types/types';
 import tmi from 'tmi.js';
@@ -7,13 +7,17 @@ import NavigationBar from '../components/NavigationBar';
 
 export const Main = () => {
   const [questions, setQuestions] = useState<String[]>([]);
+  const [username, setUsername] = useState(String);
+  const inputRef = useRef(String);
 
-  const userName:string = "mvotho"
+  const clearQs = () => {
+    setQuestions([]);
+  }
+
   useEffect(() => {
-
-
+    setUsername("mvotho")
     const client = new tmi.Client({
-      channels: [userName]
+      channels: [username]
     });
 
     client.connect();
@@ -36,19 +40,34 @@ export const Main = () => {
 
     });
 
-  }, [])
+  })
+
+
+  const u = <div className='flex justify-center items-center'><input type="text" placeholder="Enter Twitch Username" className="input input-bordered input-accent w-full max-w-xs " ref={inputRef} />
+    <div className="flex-none">
+      <button className="btn btn-sm ml-2">Set</button>
+    </div>
+  </div>
+
 
   return (
     <>
-      <NavigationBar userName={userName}/>
+      <NavigationBar userName={username} />
+
+      <>{u}</>
+
       <div className='flex justify-center'>
         <div className='flex flex-wrap h-64 w-1/2 text-3xl overflow-auto'>
+
           {questions?.map((q: any) => (
             // <p>{q.user}</p>
             //   <p>{q.question}</p>
             <QuestionWidget user={q.user} question={q.question}></QuestionWidget>
           ))}
         </div>
+      </div>
+      <div className="flex justify-center items-center">
+          <button className="btn btn-sm ml-2" onClick={clearQs}>Clear Questions</button>
       </div>
     </>
 
