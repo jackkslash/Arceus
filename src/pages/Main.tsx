@@ -2,7 +2,6 @@ import { useEffect, useState, useRef } from 'react'
 import { QuestionWidget } from '../components/QuestionWidget';
 import { Question } from '../types/types';
 import tmi from 'tmi.js';
-import { Link } from 'react-router-dom';
 import NavigationBar from '../components/NavigationBar';
 
 export const Main = () => {
@@ -15,7 +14,9 @@ export const Main = () => {
   }
 
   useEffect(() => {
-    setUsername("mvotho")
+
+    setUsername("mvotho");
+
     const client = new tmi.Client({
       channels: [username]
     });
@@ -42,19 +43,15 @@ export const Main = () => {
 
   })
 
-
-  const u = <div className='flex justify-center items-center'><input type="text" placeholder="Enter Twitch Username" className="input input-bordered input-accent w-full max-w-xs " ref={inputRef} />
-    <div className="flex-none">
-      <button className="btn btn-sm ml-2">Set</button>
-    </div>
-  </div>
-
-
   return (
     <>
       <NavigationBar userName={username} />
 
-      <>{u}</>
+      <div className='flex justify-center items-center'><input type="text" placeholder="Enter Twitch Username" className="input input-bordered input-accent w-full max-w-xs " ref={inputRef} />
+        <div className="flex-none">
+          <button className="btn btn-sm ml-2">Set</button>
+        </div>
+      </div>
 
       <div className='flex justify-center'>
         <div className='flex flex-wrap h-64 w-1/2 text-3xl overflow-auto'>
@@ -67,7 +64,7 @@ export const Main = () => {
         </div>
       </div>
       <div className="flex justify-center items-center">
-          <button className="btn btn-sm ml-2" onClick={clearQs}>Clear Questions</button>
+        <button className="btn btn-sm ml-2" onClick={clearQs}>Clear Questions</button>
       </div>
     </>
 
