@@ -45,13 +45,7 @@ export const Main = () => {
 
   return (
     <>
-      <NavigationBar userName={username} />
-
-      <div className='flex justify-center items-center'><input type="text" placeholder="Enter Twitch Username" className="input input-bordered input-accent w-full max-w-xs " ref={inputRef} />
-        <div className="flex-none">
-          <button className="btn btn-sm ml-2">Set</button>
-        </div>
-      </div>
+      <NavigationBar/>
 
       <div className='flex justify-center'>
         <div className='flex flex-wrap h-64 w-1/2 text-3xl overflow-auto'>

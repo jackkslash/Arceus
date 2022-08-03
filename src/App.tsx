@@ -1,13 +1,16 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Embed from "./components/Embed";
-import {Main} from './pages/Main'; 
+import QA from './pages/QA'; 
+import Home from "./pages/Home";
+
 
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Main/>}/> 
+        <Route path="/" element={<Home/>}/>
+        <Route path="/qa" element={<QA/>}/> 
         <Route path="embed/:userName" element={<Embed/>}/>
       </Routes>
     </Router>
