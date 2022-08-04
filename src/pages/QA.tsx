@@ -3,19 +3,21 @@ import { QuestionWidget } from '../components/QuestionWidget';
 import { Question } from '../types/types';
 import tmi from 'tmi.js';
 import NavigationBar from '../components/NavigationBar';
+import { useLocalStorage, useReadLocalStorage } from 'usehooks-ts';
 
-export const Main = () => {
+export const QA = () => {
   const [questions, setQuestions] = useState<String[]>([]);
-  const [username, setUsername] = useState(String);
+  //const [username, setUsername] = useState(String);
+
+  const username: any = useReadLocalStorage("User");
   const inputRef = useRef(String);
+  const [local, setLocal] = useLocalStorage("Question", "");
 
   const clearQs = () => {
     setQuestions([]);
   }
 
   useEffect(() => {
-
-    setUsername("mvotho");
 
     const client = new tmi.Client({
       channels: [username]
@@ -43,27 +45,33 @@ export const Main = () => {
 
   })
 
-  return (
-    <>
-      <NavigationBar/>
+  const togglePin = () => {
+    setLocal("");
 
-      <div className='flex justify-center'>
-        <div className='flex flex-wrap h-64 w-1/2 text-3xl overflow-auto'>
+  }
+    return (
+      <>
+        <NavigationBar />
 
-          {questions?.map((q: any) => (
-            // <p>{q.user}</p>
-            //   <p>{q.question}</p>
-            <QuestionWidget user={q.user} question={q.question}></QuestionWidget>
-          ))}
+        <div className='flex justify-center'>
+          <div className='flex flex-wrap h-64 w-1/2 text-3xl overflow-auto'>
+
+            {questions?.map((q: any) => (
+              // <p>{q.user}</p>
+              //   <p>{q.question}</p>
+              <QuestionWidget user={q.user} question={q.question}></QuestionWidget>
+            ))}
+          </div>
         </div>
-      </div>
-      <div className="flex justify-center items-center">
-        <button className="btn btn-sm ml-2" onClick={clearQs}>Clear Questions</button>
-      </div>
-    </>
+        <div className="flex justify-center items-center">
+          <button className="btn btn-sm ml-2" onClick={clearQs}>Clear Questions</button>
+        </div>
+        <div className="flex justify-center items-center mt-2">
+          <button className="btn btn-sm ml-2" onClick={togglePin}>Clear Pin</button>
+        </div>
+      </>
 
-  )
-}
+    )
+  }
 
-export default Main;
-
+export default QA;
